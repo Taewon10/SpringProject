@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="../image/sakura_favicon.png" type="image/png">
 <link rel="stylesheet" href="../css/delete.css">
-<title>회원탈퇴</title>
+<title>회원탈퇴창</title>
 </head>
 <body>
 <div class="userPage">
