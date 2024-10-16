@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SpringProject/src/main/webapp/WEB-INF/spring/root-context.xml -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="spring.conf"/>
+	<!-- spring.conf패키지를 스캔해서 해당 패키지에 있는 @이 붙은 클래스를 빈으로 등록. -->
+	<context:component-scan base-package="user.service.impl"/>
+	<context:component-scan base-package="user.bean" />
+	<context:component-scan base-package="user.dao" />
+
+<!-- Connection Pool & DataSource-->
+
+<!-- db.properties 파일에서 DB연결정보를 읽어오기 위함. -->
+<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	<property name="driverClassName" value="${jdbc.driver}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.username}"/>
+	<property name="password" value="${jdbc.password}"/>
+</bean> -->
+<!-- BasicDataSource 클래스를 사용해 DB 연결 풀을 생성. db.properties에서 가져온 정보로 DB에 연결. -->
+
+<!-- SqlSessionFactory -->
+<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"/>
+	<property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
+	<property name="mapperLocations" value="classpath:mapper/userMapper.xml"/>
+</bean> -->
+<!-- MyBatis의 SqlSessionFactory를 설정하는 빈. dataSource와 mybatis-config.xml을 참조해 DB 설정을 포함.
+mapperLocations는 매퍼 파일을 지정해서 DB 쿼리를 XML 파일로 관리. -->
+
+<!-- SqlSession -->
+<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg ref="sqlSessionFactory"/>
+</bean> -->
+<!-- MyBatis의 SqlSessionTemplate를 설정하고 SQL세션을 생성. sqlSessionFactory를 참조해 쿼리를 실행할 때 사용할 세션을 제공. -->	
+</beans>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SpringProject/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml -->
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<annotation-driven /> <!-- 스프링 MVC의 기본 설정을 활성화.
+	@ 애노테이션 기반의 설정과 JSON 메세지 변환, 데이터 바인딩 같은 기능이 포함. -->
+
+	<beans:bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<!-- viewResolver : Spring MVC에서 뷰의 경로와 파일 확장자를 정의.
+	prefix : 모든 뷰 경로 앞에 추가할 경로. 뷰 파일은 /WEB-INF/ 폴더 안에서 찾음
+	suffix : 모든뷰 이름 뒤에 붙일 확장자. .jsp로 설정되어있어서 뷰 파일의 확장자는 .jsp임
+	ex) 컨트롤러에서 home를 반환하면 Spring는 /WEB-INF/home.jsp 경로에서 해당 JSP 파일을 찾음. -->
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:property name="maxUploadSize" value="5000000" /> <!-- 5MB -->
+	</beans:bean>
+
+	<context:component-scan	base-package="com.controller.SpringProject" />
+	<context:component-scan	base-package="user.controller" />
+	<!-- 지정된 패키지를 스캔해서 @ 이 붙은 클래스를 자동으로 스프링 빈으로 등록. -->
+	<resources location="/WEB-INF/css/" mapping="/css/**" />
+	<resources location="/WEB-INF/js/" mapping="/js/**" />
+	<resources location="/WEB-INF/image/" mapping="/image/**" />
+	<resources location="/WEB-INF/storage/" mapping="/storage/**" />
+	<!-- resources 태그 : 정적 리소스의 경로를 매핑.
+	디렉터리의 CSS, JS, image 파일을 요청하는 URL 패턴에 매핑. -->
+	
+</beans:beans>
+<!-- 이 XML은 Spring MVC 프로젝트가 서버에서 요청을 받았을 때 뷰를 어떻게 처리하고, 어떤 자원을 참조할지 정의.
+servlet-context.xml은 웹 관련 설정을 집중 관리하는 파일.
+이런 세팅을 통해서 프로젝트의 동작방식과 구조를 결정. -->
